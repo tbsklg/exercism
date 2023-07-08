@@ -1,0 +1,13 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "parallel-letter-frequency:lib"
+
+    - path: "./test"
+      component: "parallel-letter-frequency:test:test"
+
+    - path: "./bench/Benchmark.hs"
+      component: "parallel-letter-frequency:bench:bench"
+
+    - path: "./bench/Paths_parallel_letter_frequency.hs"
+      component: "parallel-letter-frequency:bench:bench"
