@@ -1,0 +1,20 @@
+name: phone-number
+version: 1.6.1.8
+
+dependencies:
+  - base
+
+library:
+  exposed-modules: Phone
+  source-dirs: src
+  ghc-options: -Wall
+  dependencies:
+   - parsec
+
+tests:
+  test:
+    main: Tests.hs
+    source-dirs: test
+    dependencies:
+      - phone-number
+      - hspec
