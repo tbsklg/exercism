@@ -1,37 +1,48 @@
 module Minesweeper (annotate) where
 
 import Data.Char (intToDigit)
-import Data.Maybe (catMaybes)
+import Data.List.Split (chunksOf)
 
 annotate :: [String] -> [String]
-annotate board = reveal . zip [0 ..] $ board
+annotate [] = []
+annotate [""] = [""]
+annotate board = chunksOf numberOfColumns . map reveal $ coordinates
   where
-    reveal [] = []
-    reveal ((rI, r) : rs) = zipWith (\cI v -> countMines ((rI, cI), v)) [0 ..] r : reveal rs
+    mine :: Char
+    mine = '*'
 
-    countMines ((rI, cI), ' ')
-      | null numberOfMines = ' '
-      | otherwise = intToDigit $ length numberOfMines
-      where
-        numberOfMines = filter (== '*') . neighbors $ (rI, cI)
-    countMines (_, v) = v
+    emptyField :: Char
+    emptyField = ' '
 
-    neighbors (rI, cI) = catMaybes [ul, u, ur, r, dr, d, dl, l]
-      where
-        ul = valueOf (rI - 1, cI - 1)
-        u = valueOf (rI - 1, cI)
-        ur = valueOf (rI - 1, cI + 1)
-        r = valueOf (rI, cI + 1)
-        dr = valueOf (rI + 1, cI + 1)
-        d = valueOf (rI + 1, cI)
-        dl = valueOf (rI + 1, cI - 1)
-        l = valueOf (rI, cI - 1)
+    reveal :: (Int, Int) -> Char
+    reveal c
+      | isMine c = mine
+      | numberOfMines c == 0 = emptyField
+      | otherwise = intToDigit $ numberOfMines c
 
-    valueOf (rI, cI)
-      | isOutOfBound = Nothing
-      | otherwise = Just $ board !! rI !! cI
-      where
-        isOutOfBound = rI < 0 || rI > (numberOfRows - 1) || cI < 0 || cI > (numberOfColumns - 1)
+    isMine :: (Int, Int) -> Bool
+    isMine (rI, cI) = board !! rI !! cI == mine
 
+    numberOfMines :: (Int, Int) -> Int
+    numberOfMines = length . filter (== mine) . neighbors
+
+    coordinates :: [(Int, Int)]
+    coordinates = [(x, y) | x <- [0 .. numberOfRows - 1], y <- [0 .. numberOfColumns - 1]]
+
+    neighbors :: (Int, Int) -> String
+    neighbors (rI, cI) =
+      [ (\(x', y') -> board !! x' !! y') (x, y)
+        | x <- [(rI - 1) .. (rI + 1)],
+          y <- [(cI - 1) .. (cI + 1)],
+          (x, y) /= (rI, cI),
+          isInRange (x, y)
+      ]
+
+    isInRange :: (Int, Int) -> Bool
+    isInRange (rI, cI) = rI >= 0 && rI < numberOfRows && cI >= 0 && cI < numberOfColumns
+
+    numberOfRows :: Int
     numberOfRows = length board
+
+    numberOfColumns :: Int
     numberOfColumns = length . head $ board
