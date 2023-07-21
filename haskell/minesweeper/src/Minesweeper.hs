@@ -2,15 +2,18 @@ module Minesweeper (annotate) where
 
 import Data.Char (intToDigit)
 import Data.List.Split (chunksOf)
+import qualified Data.Vector as V
 
 type Coordinate = (Int, Int)
 
 type Board = [String]
 
 annotate :: Board -> Board
-annotate [] = []
 annotate [""] = [""]
-annotate board = chunksOf numberOfColumns . map reveal $ coordinates
+annotate board = annotate' . V.fromList . map V.fromList $ board
+
+annotate' :: V.Vector (V.Vector Char) -> Board
+annotate' board = chunksOf numberOfColumns . map reveal $ boardCoordinates 
   where
     mine :: Char
     mine = '*'
@@ -21,21 +24,23 @@ annotate board = chunksOf numberOfColumns . map reveal $ coordinates
     reveal :: Coordinate -> Char
     reveal c
       | isMine c = mine
-      | numberOfMines c == 0 = emptyField
-      | otherwise = intToDigit $ numberOfMines c
+      | numberOfMines == 0 = emptyField
+      | otherwise = intToDigit numberOfMines
+      where
+        numberOfMines = countMines c
 
     isMine :: Coordinate -> Bool
-    isMine (rI, cI) = board !! rI !! cI == mine
+    isMine (rI, cI) = board V.! rI V.! cI == mine
 
-    numberOfMines :: Coordinate -> Int
-    numberOfMines = length . filter (== mine) . neighbors
+    countMines :: Coordinate -> Int
+    countMines = length . filter (== mine) . neighbors
 
-    coordinates :: [Coordinate]
-    coordinates = [(x, y) | x <- [0 .. numberOfRows - 1], y <- [0 .. numberOfColumns - 1]]
+    boardCoordinates :: [Coordinate]
+    boardCoordinates = [(x, y) | x <- [0 .. numberOfRows - 1], y <- [0 .. numberOfColumns - 1]]
 
     neighbors :: Coordinate -> String
     neighbors (rI, cI) =
-      [ (\(x', y') -> board !! x' !! y') (x, y)
+      [ (\(x', y') -> board V.! x' V.! y') (x, y)
         | x <- [(rI - 1) .. (rI + 1)],
           y <- [(cI - 1) .. (cI + 1)],
           (x, y) /= (rI, cI),
@@ -46,7 +51,7 @@ annotate board = chunksOf numberOfColumns . map reveal $ coordinates
     isInRange (rI, cI) = rI >= 0 && rI < numberOfRows && cI >= 0 && cI < numberOfColumns
 
     numberOfRows :: Int
-    numberOfRows = length board
+    numberOfRows = V.length board 
 
     numberOfColumns :: Int
-    numberOfColumns = length . head $ board
+    numberOfColumns = maybe 0 V.length $ board V.!? 0
