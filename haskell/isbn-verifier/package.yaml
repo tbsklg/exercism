@@ -1,0 +1,22 @@
+name: isbn-verifier
+version: 2.7.0.9
+
+dependencies:
+  - base
+
+library:
+  exposed-modules: IsbnVerifier
+  source-dirs: src
+  main: IsbnVerifier.hs
+  ghc-options: -Wall
+  dependencies:
+  - vector
+  - parsec
+
+tests:
+  test:
+    main: Tests.hs
+    source-dirs: test
+    dependencies:
+      - isbn-verifier
+      - hspec
