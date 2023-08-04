@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "protein-translation:lib"
+
+    - path: "./test"
+      component: "protein-translation:test:test"
