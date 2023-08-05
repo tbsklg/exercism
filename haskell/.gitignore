@@ -1,2 +1,5 @@
 **/dist/
 **/.stack-work/
+
+.vscode
+.DS_Store
