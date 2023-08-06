@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "yacht:lib"
+
+    - path: "./test"
+      component: "yacht:test:test"
