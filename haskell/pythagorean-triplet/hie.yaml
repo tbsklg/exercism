@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "pythagorean-triplet:lib"
+
+    - path: "./test"
+      component: "pythagorean-triplet:test:test"
