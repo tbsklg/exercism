@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "rotational-cipher:lib"
+
+    - path: "./test"
+      component: "rotational-cipher:test:test"
