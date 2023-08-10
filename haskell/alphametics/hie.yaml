@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "alphametics:lib"
+
+    - path: "./test"
+      component: "alphametics:test:test"
