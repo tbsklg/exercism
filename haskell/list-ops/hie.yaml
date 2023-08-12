@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "list-ops:lib"
+
+    - path: "./test"
+      component: "list-ops:test:test"
