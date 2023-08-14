@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "matrix:lib"
+
+    - path: "./test"
+      component: "matrix:test:test"
