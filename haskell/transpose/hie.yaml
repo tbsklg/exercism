@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "transpose:lib"
+
+    - path: "./test"
+      component: "transpose:test:test"
