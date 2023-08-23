@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "poker:lib"
+
+    - path: "./test"
+      component: "poker:test:test"
