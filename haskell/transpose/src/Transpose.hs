@@ -5,12 +5,9 @@ import Data.Maybe (fromMaybe)
 
 transpose :: [String] -> [String]
 transpose [] = []
-transpose ls
-    | all null ls = []
-    | otherwise = concatMap firstCol ls : transpose (map furtherCols ls)
-    where
-        firstCol l = case headMay l of
-            Nothing -> " "
-            Just a -> [a]
+transpose lines = go lines 0
+  where
+    go (l:ls) g =
+      | 
 
-        furtherCols l = fromMaybe [] (tailMay l)
+    currentLenght = length l
