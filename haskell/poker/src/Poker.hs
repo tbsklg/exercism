@@ -10,30 +10,30 @@ data Hand = Hand {cards :: [Card], handType :: HandType} deriving (Eq, Ord, Show
 data HandType = HighCard | OnePair | TwoPair | ThreeOfAKind | Straight | Flush | FullHouse | FourOfAKind | StraightFlush deriving (Eq, Ord, Show)
 
 bestHands :: [String] -> Maybe [String]
-bestHands xs = Just xs
+bestHands [x] = Just [x]
+bestHands xs = Just . head . sortOn bestHand . map hand $ map parseCards xs
+
+bestHand :: Hand -> Hand -> Ordering
+bestHand (Hand cardsA HighCard) (Hand cardsB HighCard) = compare (highCard cardsA) (highCard cardsB)
 
 hand :: [Card] -> Hand
 hand cards = Hand cards winningHandType
   where
     winningHandType
-        | isStraightFlush cards = StraightFlush
-        | isFourOfAKind cards = FourOfAKind
-        | isFullHouse cards = FullHouse
-        | isFlush cards = Flush
-        | isStraight cards = Straight
-        | isThreeOfAKind cards = ThreeOfAKind
-        | isTwoPair cards = TwoPair
-        | isOnePair cards = OnePair
+        -- \| isStraightFlush cards = StraightFlush
+        -- \| isFourOfAKind cards = FourOfAKind
+        -- \| isFullHouse cards = FullHouse
+        -- \| isFlush cards = Flush
+        -- \| isStraight cards = Straight
+        -- \| isThreeOfAKind cards = ThreeOfAKind
+        -- \| isTwoPair cards = TwoPair
+        -- \| isOnePair cards = OnePair
         | otherwise = HighCard
 
-isStraightFlush :: [Card] -> Bool
-isStraightFlush cards = isStraight cards && isFlush cards
+-- >>> 1 == 2
 
-isStraight :: [Card] -> Bool
-isStraight cards = isConsecutive $ map rank cards
-
-isConsecutive :: [Rank] -> Bool
-isConsecutive xs = xs == [minimum xs .. maximum xs]
+highCard :: [Card] -> Card
+highCard cards = maximum cards
 
 parseCards :: String -> [Card]
 parseCards xs = case parse cardsParser "" xs of
