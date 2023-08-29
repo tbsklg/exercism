@@ -3,8 +3,7 @@ module Poker (bestHands) where
 import Data.Function (on)
 import Data.List (group, maximumBy, sort, sortBy)
 import Data.Ord (comparing)
-import Debug.Trace
-import Text.Parsec (digit, eof, many1, oneOf, parse, sepBy, space, string, (<|>))
+import Text.Parsec (digit, many1, oneOf, parse, sepBy, space, string, (<|>))
 
 data Rank = Rank {rankType :: RankType, rankValue :: String} deriving (Eq, Show)
 data RankType = Number | Jack | Queen | King | Ace deriving (Eq, Ord, Show)
@@ -27,6 +26,7 @@ instance Ord Card where
     compare (Card (Rank rt1 rv1) _) (Card (Rank rt2 rv2) _) = compare rt1 rt2 <> compare rv1 rv2
 
 instance Enum Rank where
+    toEnum :: Int -> Rank
     toEnum 2 = Rank Number "2"
     toEnum 3 = Rank Number "3"
     toEnum 4 = Rank Number "4"
@@ -42,6 +42,7 @@ instance Enum Rank where
     toEnum 14 = Rank Ace "A"
     toEnum _ = error "Invalid rank"
 
+    fromEnum :: Rank -> Int
     fromEnum (Rank Number "2") = 2
     fromEnum (Rank Number "3") = 3
     fromEnum (Rank Number "4") = 4
@@ -68,6 +69,7 @@ bestHands xs = case mapM parseCards xs of
 winningHands :: [Hand] -> [Hand]
 winningHands hands = filter (\hand -> compare (cards hand) (cards winner) == EQ) hands
   where
+    winner :: Hand
     winner = maximumBy (comparing $ handType . cards) hands
 
 handType :: [Card] -> HandType
@@ -85,10 +87,19 @@ handType cards
         [[c1, _], [_], [_], [_]] -> OnePair c1
         _ -> HighCard (sortBy (compare `on` rank) $ cards)
   where
+    sortedCards :: [Card]
     sortedCards = sortBy (compare `on` rank) cards
+
+    sortedRanks :: [Rank]
     sortedRanks = sort . map rank $ cards
+
+    straightHi :: Bool
     straightHi = [head sortedRanks .. last sortedRanks] == sortedRanks
+
+    straightLo :: Bool
     straightLo = [Rank Number "2", Rank Number "3", Rank Number "4", Rank Number "5", Rank Ace "A"] == sortedRanks
+
+    flush :: Bool
     flush = length (group $ map suite cards) == 1
 
 printHand :: Hand -> String
