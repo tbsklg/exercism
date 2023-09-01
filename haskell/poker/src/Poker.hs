@@ -26,7 +26,6 @@ instance Ord Card where
     compare (Card (Rank rt1 rv1) _) (Card (Rank rt2 rv2) _) = compare rt1 rt2 <> compare rv1 rv2
 
 instance Enum Rank where
-    toEnum :: Int -> Rank
     toEnum 2 = Rank Number "2"
     toEnum 3 = Rank Number "3"
     toEnum 4 = Rank Number "4"
@@ -42,7 +41,6 @@ instance Enum Rank where
     toEnum 14 = Rank Ace "A"
     toEnum _ = error "Invalid rank"
 
-    fromEnum :: Rank -> Int
     fromEnum (Rank Number "2") = 2
     fromEnum (Rank Number "3") = 3
     fromEnum (Rank Number "4") = 4
@@ -73,7 +71,7 @@ winningHands hands = filter (\hand -> compare (cards hand) (cards winner) == EQ)
     winner = maximumBy (comparing $ handType . cards) hands
 
 handType :: [Card] -> HandType
-handType cards
+handType cs
     | straightHi && flush = StraightFlush (last sortedRanks)
     | straightLo && flush = StraightFlush (Rank Number "5")
     | flush = Flush sortedCards
@@ -85,13 +83,13 @@ handType cards
         [[c1, _, _], [_], [_]] -> ThreeOfAKind c1
         [[c1, _], [c2, _], [k]] -> TwoPair c1 c2 k
         [[c1, _], [_], [_], [_]] -> OnePair c1
-        _ -> HighCard (sortBy (compare `on` rank) $ cards)
+        _ -> HighCard (sortBy (compare `on` rank) $ cs)
   where
     sortedCards :: [Card]
-    sortedCards = sortBy (compare `on` rank) cards
+    sortedCards = sortBy (compare `on` rank) cs
 
     sortedRanks :: [Rank]
-    sortedRanks = sort . map rank $ cards
+    sortedRanks = sort . map rank $ cs
 
     straightHi :: Bool
     straightHi = [head sortedRanks .. last sortedRanks] == sortedRanks
@@ -100,7 +98,7 @@ handType cards
     straightLo = [Rank Number "2", Rank Number "3", Rank Number "4", Rank Number "5", Rank Ace "A"] == sortedRanks
 
     flush :: Bool
-    flush = length (group $ map suite cards) == 1
+    flush = length (group $ map suite cs) == 1
 
 printHand :: Hand -> String
 printHand Hand{cards = c} = printCards c
