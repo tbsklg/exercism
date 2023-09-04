@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "lens-person:lib"
+
+    - path: "./test"
+      component: "lens-person:test:test"
