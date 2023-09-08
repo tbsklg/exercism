@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "sieve:lib"
+
+    - path: "./test"
+      component: "sieve:test:test"
