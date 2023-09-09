@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "palindrome-products:lib"
+
+    - path: "./test"
+      component: "palindrome-products:test:test"
