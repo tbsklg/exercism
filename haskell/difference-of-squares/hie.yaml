@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "difference-of-squares:lib"
+
+    - path: "./test"
+      component: "difference-of-squares:test:test"
