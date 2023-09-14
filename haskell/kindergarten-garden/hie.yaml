@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "kindergarten-garden:lib"
+
+    - path: "./test"
+      component: "kindergarten-garden:test:test"
