@@ -32,4 +32,4 @@ garden students plants = foldr (\(student, plants) garden -> M.insertWith (++) s
         parsePlant _ = error "Invalid plant code"
 
 lookupPlants :: String -> Garden -> [Plant]
-lookupPlants student garden = M.findWithDefault [] student garden
+lookupPlants = M.findWithDefault [] 
