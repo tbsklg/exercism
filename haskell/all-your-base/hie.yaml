@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "all-your-base:lib"
+
+    - path: "./test"
+      component: "all-your-base:test:test"
