@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "allergies:lib"
+
+    - path: "./test"
+      component: "allergies:test:test"
