@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "series:lib"
+
+    - path: "./test"
+      component: "series:test:test"
