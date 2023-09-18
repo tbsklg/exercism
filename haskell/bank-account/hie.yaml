@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "bank-account:lib"
+
+    - path: "./test"
+      component: "bank-account:test:test"
