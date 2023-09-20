@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "sublist:lib"
+
+    - path: "./test"
+      component: "sublist:test:test"
