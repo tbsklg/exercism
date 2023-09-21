@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "sgf-parsing:lib"
+
+    - path: "./test"
+      component: "sgf-parsing:test:test"
