@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "armstrong-numbers:lib"
+
+    - path: "./test"
+      component: "armstrong-numbers:test:test"
