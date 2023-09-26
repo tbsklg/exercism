@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "etl:lib"
+
+    - path: "./test"
+      component: "etl:test:test"
