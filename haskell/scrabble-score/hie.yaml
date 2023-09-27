@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "scrabble-score:lib"
+
+    - path: "./test"
+      component: "scrabble-score:test:test"
