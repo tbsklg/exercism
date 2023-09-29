@@ -1,7 +1,8 @@
+type Operation = (x: number) => number
 
-interface Operation {
-  operant: number,
-  fn: (x: number, y: number) => number,
+interface ParseResult<T> {
+  result: T,
+  further: string,
 }
 
 const EMPTY_SPACE = ' '
@@ -23,20 +24,12 @@ const parseNumber = (xs: string): ParseResult<number> => {
   throw Error('Syntax error')
 }
 
-interface ParseResult<T> {
-  result: T,
-  further: string,
-}
-
 const parseAddition = (xs: string): ParseResult<Operation> => {
   const { result, further } = parseNumber(xs.split(/plus(.*)/s)[1])
-  const operation: Operation = {
-    operant: result,
-    fn: (x: number, y: number) => x + y,
-  }
+  const add = (x: number) => (y: number) => x + y
 
   return {
-    result: operation,
+    result: add(result),
     further
   }
 }
@@ -44,39 +37,30 @@ const parseAddition = (xs: string): ParseResult<Operation> => {
 
 const parseSubtraction = (xs: string): ParseResult<Operation> => {
   const { result, further } = parseNumber(xs.split(/minus(.*)/s)[1])
-  const operation: Operation = {
-    operant: result,
-    fn: (x: number, y: number) => x - y,
-  }
+  const subtract = (x: number) => (y: number) => y - x
 
   return {
-    result: operation,
+    result: subtract(result),
     further
   }
 }
 
 const parseMultiplication = (xs: string): ParseResult<Operation> => {
   const { result, further } = parseNumber(xs.split(/multiplied by(.*)/s)[1])
-  const operation: Operation = {
-    operant: result,
-    fn: (x: number, y: number) => x * y,
-  }
+  const multiply = (x: number) => (y: number) => x * y
 
   return {
-    result: operation,
+    result: multiply(result),
     further
   }
 }
 
 const parseDivision = (xs: string): ParseResult<Operation> => {
   const { result, further } = parseNumber(xs.split(/divided by(.*)/s)[1])
-  const operation: Operation = {
-    operant: result,
-    fn: (x: number, y: number) => x / y,
-  }
+  const divide = (x: number) => (y: number) => y / x
 
   return {
-    result: operation,
+    result: divide(result),
     further
   }
 }
@@ -120,8 +104,8 @@ const parseOperations = (xs: string, result: Operation[] = []): Operation[] => {
   return parseOperations(operation.further, [...result, operation.result])
 }
 
-const performOperation = ({ fn, operant }: Operation, actual: number): number => {
-  return fn(actual, operant)
+const performOperation = (operation: Operation, actual: number): number => {
+  return operation(actual)
 }
 
 export const answer = (expression: string): number => {
