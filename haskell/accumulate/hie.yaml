@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "accumulate:lib"
+
+    - path: "./test"
+      component: "accumulate:test:test"
