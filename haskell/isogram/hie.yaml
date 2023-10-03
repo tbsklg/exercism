@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "isogram:lib"
+
+    - path: "./test"
+      component: "isogram:test:test"
