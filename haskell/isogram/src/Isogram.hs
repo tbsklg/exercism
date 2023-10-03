@@ -4,6 +4,9 @@ import Data.Char (toLower, isAlpha)
 import Data.List (nub)
 
 isIsogram :: String -> Bool
-isIsogram xs = (nub . words' $ xs) == words' xs
-  where
-    words' = filter isAlpha . map toLower
+isIsogram = allUnique . letters
+
+allUnique xs = nub xs == xs 
+
+letters = map toLower . filter isAlpha
+
