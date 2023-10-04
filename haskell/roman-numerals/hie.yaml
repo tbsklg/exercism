@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "roman-numerals:lib"
+
+    - path: "./test"
+      component: "roman-numerals:test:test"
