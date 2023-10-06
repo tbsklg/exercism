@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "pig-latin:lib"
+
+    - path: "./test"
+      component: "pig-latin:test:test"
