@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "anagram:lib"
+
+    - path: "./test"
+      component: "anagram:test:test"

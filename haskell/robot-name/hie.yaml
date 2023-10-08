@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "robot-name:lib"
+
+    - path: "./test"
+      component: "robot-name:test:test"
