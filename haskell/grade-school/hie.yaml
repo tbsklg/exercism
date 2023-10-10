@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "grade-school:lib"
+
+    - path: "./test"
+      component: "grade-school:test:test"
