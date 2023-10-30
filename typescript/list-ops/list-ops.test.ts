@@ -54,7 +54,7 @@ describe('append entries to a list and return the new list', () => {
 
   it('empty list to list', () => {
     const list1 = List.create(1, 2, 3, 4)
-    const list2 = List.create()
+    const list2 = List.create<number>()
     expect(list1.append(list2)).toEqual(list1)
   })
 
@@ -68,16 +68,16 @@ describe('append entries to a list and return the new list', () => {
 describe('concat lists and lists of lists into new list', () => {
   it('empty list', () => {
     const list1 = List.create()
-    const list2 = List.create()
+    const list2 = List.create<any>()
     expect(list1.concat(list2)).toHaveValues()
   })
 
   it('list of lists', () => {
     const list1 = List.create(1, 2)
     const list2 = List.create(3)
-    const list3 = List.create()
+    const list3 = List.create<number>()
     const list4 = List.create(4, 5, 6)
-    const listOfLists = List.create(list2, list3, list4)
+    const listOfLists = List.create<List<number>>(list2, list3, list4)
     expect(list1.concat(listOfLists)).toHaveValues(1, 2, 3, 4, 5, 6)
   })
 })

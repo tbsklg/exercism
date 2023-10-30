@@ -1,6 +1,6 @@
 export class List<T> {
 
-  private constructor(public values: T[]) { }
+  private constructor(readonly values: T[]) { }
 
   public static create<T>(...values: T[]): List<T> {
     return new List(values)
@@ -41,13 +41,13 @@ export class List<T> {
   }
 
   foldr<T, R>(fn: ((acc: R, curr: T) => R), acc: R): R {
-    this.reverse()
-    return this.foldl(fn, acc)
+    const newList = List.create(...this.values.reverse())
+    return newList.foldl(fn, acc)
   }
 
   reverse(): T[] {
-    this.values = this.values.reverse()
-    return this.values
+    const newList = List.create(...this.values.reverse())
+    return newList.values
   }
 }
 
