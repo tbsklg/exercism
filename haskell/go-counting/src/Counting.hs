@@ -116,6 +116,5 @@ frontiersOf board area =
 
 ownedBy :: S.Set (Maybe Color) -> Maybe Color
 ownedBy frontiers
-  | S.null frontiers = Nothing
   | S.size frontiers == 1 = head . S.toList $ frontiers
   | otherwise = Nothing
