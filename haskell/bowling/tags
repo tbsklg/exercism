@@ -5,14 +5,14 @@ BowlingError	/Users/tbsklg/private/git-checkouts/exercism/haskell/bowling/src/Bo
 BowlingError	src/Bowling.hs	3;"	t
 Case	/Users/tbsklg/private/git-checkouts/exercism/haskell/bowling/test/Tests.hs	21;"	t
 Case	test/Tests.hs	21;"	t
+Game	/Users/tbsklg/private/git-checkouts/exercism/haskell/bowling/src/Bowling.hs	9;"	t
+Game	src/Bowling.hs	9;"	t
 IncompleteGame	/Users/tbsklg/private/git-checkouts/exercism/haskell/bowling/src/Bowling.hs	4;"	C
 IncompleteGame	src/Bowling.hs	4;"	C
 InvalidRoll	/Users/tbsklg/private/git-checkouts/exercism/haskell/bowling/src/Bowling.hs	5;"	C
 InvalidRoll	src/Bowling.hs	5;"	C
 Roll	/Users/tbsklg/private/git-checkouts/exercism/haskell/bowling/src/Bowling.hs	8;"	t
 Roll	src/Bowling.hs	8;"	t
-State	/Users/tbsklg/private/git-checkouts/exercism/haskell/bowling/src/Bowling.hs	9;"	t
-State	src/Bowling.hs	9;"	t
 cases	/Users/tbsklg/private/git-checkouts/exercism/haskell/bowling/test/Tests.hs	26;"	f
 cases	test/Tests.hs	26;"	f
 description	/Users/tbsklg/private/git-checkouts/exercism/haskell/bowling/test/Tests.hs	21;"	f
@@ -21,8 +21,8 @@ expected	/Users/tbsklg/private/git-checkouts/exercism/haskell/bowling/test/Tests
 expected	test/Tests.hs	23;"	f
 frame	/Users/tbsklg/private/git-checkouts/exercism/haskell/bowling/src/Bowling.hs	9;"	f
 frame	src/Bowling.hs	9;"	f
-initialState	/Users/tbsklg/private/git-checkouts/exercism/haskell/bowling/src/Bowling.hs	12;"	f
-initialState	src/Bowling.hs	12;"	f
+initialGame	/Users/tbsklg/private/git-checkouts/exercism/haskell/bowling/src/Bowling.hs	12;"	f
+initialGame	src/Bowling.hs	12;"	f
 main	/Users/tbsklg/private/git-checkouts/exercism/haskell/bowling/test/Tests.hs	9;"	f
 main	test/Tests.hs	9;"	f
 points	/Users/tbsklg/private/git-checkouts/exercism/haskell/bowling/src/Bowling.hs	9;"	f
