@@ -9,9 +9,7 @@ library:
   source-dirs: src
   ghc-options: -Wall
   dependencies:
-  - parsec
-  - containers
-  - safe
+    - parsec
 
 tests:
   test:
