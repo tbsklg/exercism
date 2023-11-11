@@ -7,7 +7,7 @@ export const nucleotideCounts = (dna: string) => {
 }
 
 const validNucleotide = (x: string): string => {
-  if (["A", "C", "G", "T"].includes(x)) return x
+  if ("ACGT".includes(x)) return x
 
   throw new Error("Invalid nucleotide in strand")
 } 
