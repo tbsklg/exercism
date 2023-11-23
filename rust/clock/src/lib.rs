@@ -8,25 +8,14 @@ pub struct Clock {
 
 impl Clock {
     pub fn new(hours: i32, minutes: i32) -> Self {
-        if hours < 0 {
-            return Clock::new(hours + 24, minutes);
-        }
-
-        if minutes < 0 {
-            return Clock::new(hours - 1, minutes + 60);
-        }
-
         Clock {
-            hours: (hours + minutes / 60) % 24,
-            minutes: minutes % 60,
+            hours: (hours + minutes.div_euclid(60)).rem_euclid(24),
+            minutes: minutes.rem_euclid(60),
         }
     }
 
     pub fn add_minutes(&self, minutes: i32) -> Self {
-        let hours = (self.hours + (self.minutes + minutes) / 60) % 24;
-        let minutes = (self.minutes + minutes) % 60;
-
-        Clock::new(hours, minutes)
+        Clock::new(self.hours, self.minutes + minutes)
     }
 }
 
