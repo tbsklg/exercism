@@ -1,3 +1,4 @@
+#![warn(clippy::all, clippy::pedantic)]
 pub fn factors(mut n: u64) -> Vec<u64> {
     let mut candidates = 2..;
     let mut factors = Vec::new();
