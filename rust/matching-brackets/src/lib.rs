@@ -3,15 +3,18 @@ pub fn brackets_are_balanced(string: &str) -> bool {
     for c in string.chars() {
         match c {
             '(' | '[' | '{' => stack.push(c),
-            ')' | ']' | '}' => {
-                if let Some(last) = stack.pop() {
-                    if !((last == '(' && c == ')')
-                        || (last == '[' && c == ']')
-                        || (last == '{' && c == '}'))
-                    {
-                        return false;
-                    }
-                } else {
+            ')' => {
+                if stack.pop() != Some('(') {
+                    return false;
+                }
+            }
+            ']' => {
+                if stack.pop() != Some('[') {
+                    return false;
+                }
+            }
+            '}' => {
+                if stack.pop() != Some('{') {
                     return false;
                 }
             }
