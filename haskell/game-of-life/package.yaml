@@ -4,6 +4,17 @@ version: 1.0.0.0
 dependencies:
   - base
 
+executables:
+  game-of-life-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+      - game-of-life == 1.0.0.0
+
 library:
   exposed-modules: GameOfLife
   source-dirs: src
