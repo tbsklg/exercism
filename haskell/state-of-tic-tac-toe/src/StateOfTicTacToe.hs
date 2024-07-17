@@ -44,12 +44,14 @@ gameState board
     countO = countPlayer 'O'
 
     winHorizontally :: Char -> Bool
-    winHorizontally player =
-      any (\row -> [player, player, player] == filter (== player) row) board
+    winHorizontally player = winsRow player board
 
     winVertically :: Char -> Bool
-    winVertically player =
-      any (\row -> [player, player, player] == filter (== player) row) . transpose $ board
+    winVertically player = winsRow player (transpose board)
+
+    winsRow :: Char -> [String] -> Bool
+    winsRow player board' =
+      any (\row -> [player, player, player] == filter (== player) row) board'
 
     winDiagonally :: Char -> Bool
     winDiagonally player =
