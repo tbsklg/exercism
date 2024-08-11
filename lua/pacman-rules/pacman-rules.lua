@@ -17,7 +17,7 @@ end
 
 -- returns if Pac-Man won by eating all dots and has not touched a ghost without a power pellet
 function rules.win(has_eaten_all_dots, power_pellet_active, touching_ghost)
-  return has_eaten_all_dots and power_pellet_active and touching_ghost
+  return has_eaten_all_dots and not rules.lose(power_pellet_active, touching_ghost)
 end
 
 return rules
