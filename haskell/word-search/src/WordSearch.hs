@@ -10,12 +10,19 @@ data WordPos = WordPos {start :: CharPos, end :: CharPos} deriving (Eq, Show)
 search :: [String] -> [String] -> [(String, Maybe WordPos)]
 search _ [] = []
 search grid (w : ws) =
-  let startPositions = case safeHead w of
-        Just c -> findPositions c grid
-        Nothing -> []
+  let startPositions :: [(Int, Int)]
+      startPositions = maybe [] findPositions (safeHead w)
 
+      inBounds :: (Int, Int) -> Bool
       inBounds (r, c) = r >= 0 && r < length grid && c >= 0 && c < length (head grid)
 
+      findPositions :: Char -> [(Int, Int)]
+      findPositions c =
+        let fp [] = []
+            fp ((i, l) : ls) = [(i, j) | j <- elemIndices c l] ++ fp ls
+         in fp (zip [0 ..] grid)
+
+      go :: [(Int, Int)] -> [(String, Maybe WordPos)]
       go [] = []
       go ((r, c) : ps) =
         let leftToRight = [(r, c') | c' <- [c .. c + length w - 1], inBounds (r, c')]
@@ -38,16 +45,11 @@ search grid (w : ws) =
                   s = CharPos {col = c + 1, row = r + 1}
                   e = CharPos {col = snd (last ys) + 1, row = fst (last ys) + 1}
 
+      result :: [(String, Maybe WordPos)]
       result = go startPositions
    in if null startPositions || null result
         then (w, Nothing) : search grid ws
         else go startPositions ++ search grid ws
-
-findPositions :: Char -> [String] -> [(Int, Int)]
-findPositions c xs =
-  let go [] = []
-      go ((i, l) : ls) = [(i, j) | j <- elemIndices c l] ++ go ls
-   in go (zip [0 ..] xs)
 
 safeHead :: [a] -> Maybe a
 safeHead [] = Nothing
