@@ -1,6 +1,5 @@
 module WordSearch (search, CharPos (..), WordPos (..)) where
 
-import Control.Applicative ()
 import Data.List (elemIndices)
 
 data CharPos = CharPos {col :: Int, row :: Int} deriving (Eq, Show)
