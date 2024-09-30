@@ -6,8 +6,8 @@ import Data.List (sort)
 treeFromTraversals :: (Show a, Ord a) => [a] -> [a] -> Maybe (BinaryTree a)
 treeFromTraversals [] [] = Nothing
 treeFromTraversals preorder inorder
-  | sort preorder /= sort inorder = Nothing
   | hasDuplicates preorder || hasDuplicates inorder = Nothing
+  | sort preorder /= sort inorder = Nothing
   | otherwise = go preorder inorder
   where
     go :: (Show a, Ord a) => [a] -> [a] -> Maybe (BinaryTree a)
