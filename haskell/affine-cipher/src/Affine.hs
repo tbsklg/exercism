@@ -1,21 +1,33 @@
 module Affine (decode, encode) where
 
-import Data.Char (chr, isLower, isNumber)
+import Data.Char (chr, isAlphaNum, isLower, isNumber)
 import Data.List (elemIndex)
 import Data.List.Split (chunksOf)
 
 -- >>> encode (5, 7) "hello 123"
 -- Just "qbkkz 123"
--- Just "qbkkz 123"
--- Just "xbt"
 decode :: (Int, Int) -> String -> Maybe String
-decode key cipherText = error "You need to implement this function."
+decode key cipherText = do
+  key' <- coprime key
+  decrypted <- mapM (decrypt key') . filter isAlphaNum $ cipherText
+  return decrypted
 
 encode :: (Int, Int) -> String -> Maybe String
 encode key plainText = do
-  (a, b) <- coprime key
-  encrypted <- mapM (encrypt (a, b)) . filter (/= ' ') $ plainText
+  key' <- coprime key
+  encrypted <- mapM (encrypt key') . filter isAlphaNum $ plainText
   return (unwords $ chunksOf 5 encrypted)
+
+decrypt :: (Int, Int) -> Char -> Maybe Char
+decrypt (a, b) c =
+  if isNumber c
+    then Just c
+    else do
+      i <- alphabetIndex c
+      fromAlphabetIndex $ (inverse 26 a * (i - b)) `mod` 26
+
+inverse :: Int -> Int -> Int
+inverse m a = until (\x -> a * x `mod` m == 1) (+ 1) 1
 
 encrypt :: (Int, Int) -> Char -> Maybe Char
 encrypt (a, b) c =
