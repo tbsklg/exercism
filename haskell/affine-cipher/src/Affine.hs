@@ -7,8 +7,7 @@ import Data.List.Split (chunksOf)
 decode :: (Int, Int) -> String -> Maybe String
 decode key cipherText = do
   key' <- coprime key
-  decrypted <- mapM (decrypt key') . filter isAlphaNum $ cipherText
-  return decrypted
+  mapM (decrypt key') . filter isAlphaNum $ cipherText
 
 encode :: (Int, Int) -> String -> Maybe String
 encode key plainText = do
