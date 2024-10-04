@@ -4,8 +4,6 @@ import Data.Char (chr, isAlphaNum, isLower, isNumber)
 import Data.List (elemIndex)
 import Data.List.Split (chunksOf)
 
--- >>> encode (5, 7) "hello 123"
--- Just "qbkkz 123"
 decode :: (Int, Int) -> String -> Maybe String
 decode key cipherText = do
   key' <- coprime key
