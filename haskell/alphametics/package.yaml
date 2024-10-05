@@ -9,6 +9,7 @@ library:
   source-dirs: src
   ghc-options: -Wall
   dependencies:
+    - split
     - parsec
 
 tests:

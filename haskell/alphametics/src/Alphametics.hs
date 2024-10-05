@@ -1,30 +1,41 @@
 module Alphametics (solve) where
 
-import Text.Parsec (
-  Parsec,
-  ParsecT,
-  eof,
-  letter,
-  many1,
-  parse,
-  sepBy,
-  string,
- )
+import Data.List.Split
+import Text.Parsec
+import Debug.Trace
 
-type Result = String
-type Words = [String]
+data Expr
+  = Var [Char] | Plus Expr Expr | Equals Expr Expr | Null
+  deriving (Show, Eq)
 
-data Expression = Expression Words Result deriving (Show, Eq)
+-- >>> parseExpression "I + I == B"
+-- Nothing
 
 solve :: String -> Maybe [(Char, Int)]
 solve puzzle = error "You need to implement this function."
 
-parseExpression :: String -> Expression
-parseExpression puzzle = case expressionParser "" xs of
-  Left err -> error err
-  Right expression -> expression
- where
-  expressionParser = do
-    [left, right] <- sepBy arithemticParser (string " == ")
+parseExpression :: String -> Maybe Expr
+parseExpression xs = case parse expressionParser "" xs of
+  Left e -> traceShow e Nothing
+  Right expression -> Just expression
+  where
 
-  arithemticParser = do
+    -- parse i.e.
+    -- "AA == BB" shouldbe Equals (Number "AA") (Number "BB")
+    -- "I + BB == ILL" shouldbe Equals (Add (Number "I") (Number "BB")) (Number "ILL")
+    -- "A + B + C == D" shouldbe Equals (Add (Add (Number "A") (Number "B")) (Number "C")) (Number "D")
+    expressionParser = do
+      l <- many1 letter
+      spaces <|> eof
+      o <- string "+" <|> string "=="
+      spaces
+      case o of
+        "+" -> do
+          spaces
+          e2 <- expressionParser
+          return $ Plus (Var l) e2
+        "==" -> do
+          r <- many1 letter
+          return $ Equals (Var l) (Var r)
+        _ -> return Null
+
