@@ -18,7 +18,6 @@ library
   ghc-options: -Wall
   build-depends:
       base
-    , parsec
     , split
   default-language: Haskell2010
 

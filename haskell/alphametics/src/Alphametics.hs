@@ -1,33 +1,20 @@
 module Alphametics (solve) where
 
-import Data.List.Split
-import Text.Parsec
-import Debug.Trace
+import Data.List.Split (splitOn)
 
-data Expr
-  = Number [Char] | Add Expr Expr | Equals Expr Expr | Null
-  deriving (Show, Eq)
+type State = [(String, Int)]
+type Result = String
 
--- >>> parseExpression "I + I == B"
--- Nothing
+data Ast = Literal String | Binary Ast Operator Ast deriving (Show, Eq)
+data Operator = Plus deriving (Show, Eq)
 
+-- >>> splitOn "==" "a + b + c == d"
+-- ["a + b + c "," d"]
 solve :: String -> Maybe [(Char, Int)]
 solve puzzle = error "You need to implement this function."
 
--- A + A == B
--- A + A + A == BB
--- C == FF
-parseExpression :: String -> Maybe Expr
-parseExpression = either (const Nothing) Just . parse expr ""
-  where
-    expr = do
-      left <- many1 letter
-      spaces
-      char '+'
-      spaces
-      right <- many1 letter
-      spaces
-      char '='
-      spaces
-      result <- many1 letter
-      return $ Equals (Add (Number left) (Number right)) (Number result)
+-- parse a string to and ast and a result
+-- "a + b + c" = (+ (+ (a b)) c)
+parse :: String -> (Ast, String)
+parse xs = undefined
+
