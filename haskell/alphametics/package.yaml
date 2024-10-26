@@ -10,6 +10,7 @@ library:
   ghc-options: -Wall
   dependencies:
     - split
+    - parsec
 
 tests:
   test:
