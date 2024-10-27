@@ -1,19 +1,36 @@
 module Alphametics (solve) where
 
-import Data.List.Split
+import Data.List
+import Data.List.Split (splitOn)
 
-data Ast = Literal String | Binary Ast Operator Ast deriving (Show, Eq)
-data Operator = Plus deriving (Show, Eq)
+type Operands = [String]
+type Result = String
+type Combinations = [[Int]]
+type Combination = [Int]
 
 solve :: String -> Maybe [(Char, Int)]
-solve puzzle = error "You need to implement this function."
+solve puzzle = Nothing
 
-parseAst :: String -> Maybe Ast
-parseAst xs = 
-  let
-    [l, r] = splitOn " == " xs
-    operands = splitOn " + " l
-  in
-    Just $ foldr ((\acc c -> Binary acc Plus c) . Literal) (Literal r) operands
+-- >>> evalCombination [9,5,4]
+-- True
+parse :: String -> Either String (Operands, Result)
+parse xs = case splitOn " == " xs of
+  [[], []] -> Left "No input provided"
+  [[], _] -> Left "No operands provided"
+  [_, []] -> Left "No result provided"
+  [operands, result] -> Right (splitOn " + " operands, result)
+  _ -> Left "Invalid input, expected 'operands == result'"
 
+evalCombination :: Combination -> Bool
+evalCombination [] = False
+evalCombination [x] = True
+evalCombination xs = (==) ((sum . init $ xs) `mod` 10) (last xs)
+
+combinations :: Int -> Combinations
+combinations l = go l [0 .. 9] []
+  where
+    go :: Int -> [Int] -> [Int] -> [[Int]]
+    go l xs c
+      | l == 0 = [c]
+      | otherwise = concatMap (\x -> go (l - 1) (delete x xs) (x : c)) xs
 
