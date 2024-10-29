@@ -5,14 +5,14 @@ import Data.List.Split (splitOn)
 
 type Operands = [String]
 type Result = String
+type Evaluation = (Combinations, Result)
 type Combinations = [[Int]]
 type Combination = [Int]
+type Carry = Int
 
 solve :: String -> Maybe [(Char, Int)]
 solve puzzle = Nothing
 
--- >>> evalCombination [9,5,4]
--- True
 parse :: String -> Either String (Operands, Result)
 parse xs = case splitOn " == " xs of
   [[], []] -> Left "No input provided"
@@ -20,6 +20,9 @@ parse xs = case splitOn " == " xs of
   [_, []] -> Left "No result provided"
   [operands, result] -> Right (splitOn " + " operands, result)
   _ -> Left "Invalid input, expected 'operands == result'"
+
+testCombinations :: (Combinations, Carry) -> Combinations
+testCombinations c = undefined
 
 evalCombination :: Combination -> Bool
 evalCombination [] = False
