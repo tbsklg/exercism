@@ -2,16 +2,19 @@ module Alphametics (solve) where
 
 import Data.List
 import Data.List.Split (splitOn)
+import Data.Char
+import Data.Maybe
 
+type Equation = (Operands, Result)
 type Operands = [String]
 type Result = String
-type Evaluation = (Combinations, Result)
+
 type Combinations = [[Int]]
-type Combination = [Int]
-type Carry = Int
 
 solve :: String -> Maybe [(Char, Int)]
-solve puzzle = Nothing
+solve puzzle = case parse puzzle of
+  Left _ -> Nothing
+  Right equation -> find (`testCombination` equation) $ possibleCombinations equation
 
 parse :: String -> Either String (Operands, Result)
 parse xs = case splitOn " == " xs of
@@ -21,13 +24,26 @@ parse xs = case splitOn " == " xs of
   [operands, result] -> Right (splitOn " + " operands, result)
   _ -> Left "Invalid input, expected 'operands == result'"
 
-testCombinations :: (Combinations, Carry) -> Combinations
-testCombinations c = undefined
+possibleCombinations :: Equation -> [[(Char, Int)]]
+possibleCombinations (os, r) = 
+  let
+    a = nub (r ++ concat os)
+    c = combinations $ length a
+  in
+    map (zip a) c
 
-evalCombination :: Combination -> Bool
-evalCombination [] = False
-evalCombination [x] = True
-evalCombination xs = (==) ((sum . init $ xs) `mod` 10) (last xs)
+testCombination :: [(Char, Int)] -> Equation -> Bool
+testCombination state (operands, result) =
+  let
+    lhs :: Int
+    lhs = sum $ map (asInt . map (fromJust . flip lookup state)) operands
+    rhs :: Int
+    rhs = asInt $ map (fromJust . flip lookup state) result
+  in
+    lhs == rhs
+
+asInt :: [Int] -> Int
+asInt = read . concatMap show
 
 combinations :: Int -> Combinations
 combinations l = go l [0 .. 9] []
