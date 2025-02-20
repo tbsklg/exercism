@@ -1,21 +1,20 @@
 pub fn collatz(n: u64) -> Option<u64> {
-    fn count_steps(n: u64, steps: u64) -> u64 {
-        let even = |n: u64| n % 2 == 0;
-
-        if n == 1 {
-            return steps;
+    fn count_steps(n: u64, steps: u64) -> Option<u64> {
+        match n {
+            0 => None,
+            1 => Some(steps),
+            n => match n % 2 {
+                0 => n.checked_div(2).and_then(|n| count_steps(n, steps + 1)),
+                _ => n
+                    .checked_mul(3)
+                    .and_then(|n| n.checked_add(1))
+                    .and_then(|n| count_steps(n, steps + 1)),
+            },
         }
-
-        if even(n) {
-            return count_steps(n / 2, steps + 1);
-        }
-
-        count_steps(n * 3 + 1, steps + 1)
     }
 
-    if n == 0 {
-        return None;
+    match n {
+        0 => None,
+        n => count_steps(n, 0),
     }
-
-    Some(count_steps(n, 0))
 }
