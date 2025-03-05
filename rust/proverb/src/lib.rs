@@ -3,13 +3,11 @@ pub fn build_proverb(l: &[&str]) -> String {
         return String::new();
     }
 
-    let mut phrases = l.windows(2).fold(vec![],
-        |mut acc, curr| {
-            let phrase = lost_for(curr[0], curr[1]);
-            acc.push(phrase);
-            acc
-        },
-    );
+    let mut phrases = l.windows(2).fold(vec![], |mut acc, curr| {
+        let phrase = lost_for(curr[0], curr[1]);
+        acc.push(phrase);
+        acc
+    });
 
     phrases.push(end(l[0]));
     phrases.join("\n")
