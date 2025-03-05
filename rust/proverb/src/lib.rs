@@ -1,13 +1,11 @@
-use std::iter::zip;
-
 pub fn build_proverb(l: &[&str]) -> String {
     if l.is_empty() {
         return String::new();
     }
 
-    let mut phrases = zip(l, &l[1..]).fold(vec![],
+    let mut phrases = l.windows(2).fold(vec![],
         |mut acc, curr| {
-            let phrase = lost_for(curr.0, curr.1);
+            let phrase = lost_for(curr[0], curr[1]);
             acc.push(phrase);
             acc
         },
