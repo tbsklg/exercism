@@ -2,61 +2,48 @@ pub fn annotate(minefield: &[&str]) -> Vec<String> {
     minefield
         .iter()
         .enumerate()
-        .map(|(r_i, r)| {
-            r.chars()
+        .map(|(row_idx, row)| {
+            row.chars()
                 .enumerate()
-                .map(|(c_i, c)| match c {
-                    ' ' => {
-                        let mines = count_mines((r_i as i8, c_i as i8), minefield);
-
-                        if mines == 0 {
-                            return ' ';
+                .map(|(col_idx, cell)| match cell {
+                    '*' => '*',
+                    _ => {
+                        let mines = count_adjacent_mines(row_idx, col_idx, minefield);
+                        match mines {
+                            0 => ' ',
+                            n => char::from_digit(n as u32, 10).unwrap(),
                         }
-
-                        char::from_digit(mines as u32, 10).unwrap()
                     }
-                    _ => '*',
                 })
-                .collect()
+                .collect::<String>()
         })
         .collect()
 }
 
-const DIRS: [(i8, i8); 8] = [
-    (0, 1),
-    (0, -1),
-    (1, 0),
-    (1, 1),
-    (1, -1),
-    (-1, 0),
-    (-1, 1),
-    (-1, -1),
-];
+fn count_adjacent_mines(row: usize, col: usize, minefield: &[&str]) -> usize {
+    const DIRECTIONS: [(isize, isize); 8] = [
+        (-1, -1),
+        (-1, 0),
+        (-1, 1),
+        (0, -1),
+        (0, 1),
+        (1, -1),
+        (1, 0),
+        (1, 1),
+    ];
 
-fn count_mines((r_i, c_i): (i8, i8), minefield: &[&str]) -> usize {
-    DIRS.iter()
-        .filter_map(|(d_r, d_c)| in_bounds((r_i + d_r, c_i + d_c), minefield))
-        .map(|(nr_i, nc_i)| {
-            minefield[nr_i as usize]
-                .chars()
-                .nth(nc_i as usize)
-                .unwrap_or(' ')
+    let row_count = minefield.len() as isize;
+    let col_count = minefield.first().map_or(0, |r| r.len()) as isize;
+
+    DIRECTIONS
+        .iter()
+        .filter_map(|(dr, dc)| {
+            let new_row = row as isize + dr;
+            let new_col = col as isize + dc;
+
+            (new_row >= 0 && new_row < row_count && new_col >= 0 && new_col < col_count)
+                .then_some((new_row as usize, new_col as usize))
         })
-        .filter(|f| *f == '*')
+        .filter(|(r, c)| (minefield.get(*r).and_then(|row| row.chars().nth(*c))) == Some('*'))
         .count()
-}
-
-fn in_bounds((r_i, c_i): (i8, i8), minefield: &[&str]) -> Option<(i8, i8)> {
-    if minefield.is_empty() {
-        return None;
-    }
-
-    let rows = minefield.len() as i8;
-    let cols = minefield[0].len() as i8;
-
-    if r_i < 0 || r_i > rows - 1 || c_i < 0 || c_i > cols - 1 {
-        return None;
-    }
-
-    Some((r_i, c_i))
 }
