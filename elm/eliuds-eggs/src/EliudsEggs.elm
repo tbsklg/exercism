@@ -7,17 +7,8 @@ eggCount x =
         0 ->
             0
 
+        1 ->
+            1
+
         _ ->
-            let
-                lastBit =
-                    modBy 2 x
-
-                remainingBits =
-                    x // 2
-            in
-            case lastBit of
-                1 ->
-                    1 + eggCount remainingBits
-
-                _ ->
-                    eggCount remainingBits
+            modBy 2 x + eggCount (x // 2)
