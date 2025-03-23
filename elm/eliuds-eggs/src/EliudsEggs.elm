@@ -3,11 +3,21 @@ module EliudsEggs exposing (eggCount)
 
 eggCount : Int -> Int
 eggCount x =
-    if x == 0 then
-        0
+    case x of
+        0 ->
+            0
 
-    else if modBy x 2 == 0 then
-        1 + eggCount (x // 10)
+        _ ->
+            let
+                lastBit =
+                    modBy 2 x
 
-    else
-        eggCount (x // 10)
+                remainingBits =
+                    x // 2
+            in
+            case lastBit of
+                1 ->
+                    1 + eggCount remainingBits
+
+                _ ->
+                    eggCount remainingBits
