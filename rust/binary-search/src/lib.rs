@@ -3,27 +3,22 @@ pub fn find(array: &[i32], key: i32) -> Option<usize> {
         return None;
     }
 
-    fn search(xs: Vec<(usize, &i32)>, key: i32) -> Option<usize> {
-        let middle = xs.len() / 2;
-
-        if xs.len() == 1 && *xs[middle].1 != key {
+    fn binary_search(slice: &[i32], key: i32, offset: usize) -> Option<usize> {
+        if slice.is_empty() {
             return None;
         }
 
-        if *xs[middle].1 == key {
-            return Some(xs[middle].0);
-        }
+        let mid_idx = slice.len() / 2;
+        let mid_val = slice[mid_idx];
 
-        if *xs[middle].1 > key {
-            return search(xs[..middle].to_vec(), key);
+        match mid_val.cmp(&key) {
+            std::cmp::Ordering::Equal => Some(offset + mid_idx),
+            std::cmp::Ordering::Greater => binary_search(&slice[..mid_idx], key, offset),
+            std::cmp::Ordering::Less => {
+                binary_search(&slice[mid_idx + 1..], key, offset + mid_idx + 1)
+            }
         }
-
-        if *xs[middle].1 < key {
-            return search(xs[middle..].to_vec(), key);
-        }
-
-        None
     }
 
-    search(array.iter().enumerate().collect::<Vec<_>>(), key)
+    binary_search(array, key, 0)
 }
