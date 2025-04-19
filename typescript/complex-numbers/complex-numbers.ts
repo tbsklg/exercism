@@ -16,11 +16,17 @@ export class ComplexNumber {
   }
 
   public add(other: ComplexNumber): ComplexNumber {
-    return new ComplexNumber(this._real + other.real, this._imaginary + other.imag);
+    return new ComplexNumber(
+      this._real + other.real,
+      this._imaginary + other.imag,
+    );
   }
 
   public sub(other: ComplexNumber): ComplexNumber {
-    return new ComplexNumber(this._real - other.real, this._imaginary - other.imag);
+    return new ComplexNumber(
+      this._real - other.real,
+      this._imaginary - other.imag,
+    );
   }
 
   public div(other: ComplexNumber): ComplexNumber {
@@ -45,11 +51,16 @@ export class ComplexNumber {
   }
 
   public get abs(): number {
-    return Math.sqrt(this._real * this._real + this._imaginary * this._imaginary);
+    return Math.sqrt(
+      this._real * this._real + this._imaginary * this._imaginary,
+    );
   }
 
   public get conj(): ComplexNumber {
-    return new ComplexNumber(this._real, -this._imaginary);
+    return new ComplexNumber(
+      this._real,
+      this._imaginary === 0 ? 0 : -1 * this._imaginary,
+    );
   }
 
   public get exp(): ComplexNumber {
