@@ -50,43 +50,43 @@ describe('Luhn', () => {
     expect(valid('059a')).toBeFalsy()
   })
 
-  xit('valid strings with punctuation included become invalid', () => {
+  it('valid strings with punctuation included become invalid', () => {
     expect(valid('055-444-285')).toBeFalsy()
   })
 
-  xit('valid strings with symbols included become invalid', () => {
+  it('valid strings with symbols included become invalid', () => {
     expect(valid('055# 444$ 285')).toBeFalsy()
   })
 
-  xit('single zero with space is invalid', () => {
+  it('single zero with space is invalid', () => {
     expect(valid(' 0')).toBeFalsy()
   })
 
-  xit('more than a single zero is valid', () => {
+  it('more than a single zero is valid', () => {
     expect(valid('0000 0')).toBeTruthy()
   })
 
-  xit('input digit 9 is correctly converted to output digit 9', () => {
+  it('input digit 9 is correctly converted to output digit 9', () => {
     expect(valid('091')).toBeTruthy()
   })
 
-  xit('very long input is valid', () => {
+  it('very long input is valid', () => {
     expect(valid('9999999999 9999999999 9999999999 9999999999')).toBeTruthy()
   })
 
-  xit('valid luhn with an odd number of digits and non zero first digit', () => {
+  it('valid luhn with an odd number of digits and non zero first digit', () => {
     expect(valid('109')).toBeTruthy()
   })
 
-  xit("using ascii value for non-doubled non-digit isn't allowed", () => {
+  it("using ascii value for non-doubled non-digit isn't allowed", () => {
     expect(valid('055b 444 285')).toBeFalsy()
   })
 
-  xit("using ascii value for doubled non-digit isn't allowed", () => {
+  it("using ascii value for doubled non-digit isn't allowed", () => {
     expect(valid(':9')).toBeFalsy()
   })
 
-  xit("non-numeric, non-space char in the middle with a sum that's divisible by 10 isn't allowed", () => {
+  it("non-numeric, non-space char in the middle with a sum that's divisible by 10 isn't allowed", () => {
     expect(valid('59%59')).toBeFalsy()
   })
 })
