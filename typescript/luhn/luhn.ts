@@ -3,7 +3,7 @@ export function valid(digitString: string): boolean {
 
   return (
     digits.length > 1 &&
-    digits.length === [...digitString].filter((x) => !isWhitespace(x)).length &&
+    digits.length === [...digitString].filter(notIsWhitespace).length &&
     digits
       .reverse()
       .map((x, i) => {
@@ -20,5 +20,6 @@ export function valid(digitString: string): boolean {
   );
 }
 
+const notIsWhitespace = (x: string): boolean => !isWhitespace(x);
 const isWhitespace = (x: string): boolean => x === " ";
 const even = (x: number): boolean => x % 2 === 0;
