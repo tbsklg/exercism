@@ -5,8 +5,7 @@ export function valid(digitString: string): boolean {
     digits.length > 1 &&
     digits.length === [...digitString].filter(notIsWhitespace).length &&
     divisibleByTen(
-      digits
-        .reverse()
+      reverse(digits)
         .map((x, i) => {
           if (even(i)) {
             return x;
@@ -20,6 +19,7 @@ export function valid(digitString: string): boolean {
   );
 }
 
+const reverse = (x: any[]): any[] => [...x].reverse();
 const divisibleByTen = (x: number): boolean => x % 10 === 0;
 const notIsWhitespace = (x: string): boolean => !isWhitespace(x);
 const isWhitespace = (x: string): boolean => x === " ";
