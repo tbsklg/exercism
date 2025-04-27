@@ -2,7 +2,7 @@ export function valid(digitString: string): boolean {
   const digits = (digitString.match(/\d/g) ?? []).map(Number);
 
   return (
-    digits.length > 1 &&
+    greaterOne(digits) &&
     digits.length === [...digitString].filter(notIsWhitespace).length &&
     divisibleByTen(
       reverse(digits)
@@ -19,6 +19,7 @@ export function valid(digitString: string): boolean {
   );
 }
 
+const greaterOne = (x: any[]): boolean => x.length > 1;
 const reverse = (x: any[]): any[] => [...x].reverse();
 const divisibleByTen = (x: number): boolean => x % 10 === 0;
 const notIsWhitespace = (x: string): boolean => !isWhitespace(x);
