@@ -1,14 +1,18 @@
 return {
   color_code = function(color)
-    if color == 'black' then return 0 end
-    if color == 'brown' then return 1 end
-    if color == 'red' then return 2 end
-    if color == 'orange' then return 3 end
-    if color == 'yellow' then return 4 end
-    if color == 'green' then return 5 end
-    if color == 'blue' then return 6 end
-    if color == 'violet' then return 7 end
-    if color == 'grey' then return 8 end
-    if color == 'white' then return 9 end
+    local color_map = {
+      black = 0,
+      brown = 1,
+      red = 2,
+      orange = 3,
+      yellow = 4,
+      green = 5,
+      blue = 6,
+      violet = 7,
+      grey = 8,
+      white = 9
+    }
+    local normalized_color = color and string.lower(color) or nil
+    return color_map[normalized_color]
   end
 }
