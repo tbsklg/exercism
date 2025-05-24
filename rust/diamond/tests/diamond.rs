@@ -6,7 +6,6 @@ fn degenerate_case_with_a_single_a_row() {
 }
 
 #[test]
-#[ignore]
 fn degenerate_case_with_no_row_containing_3_distinct_groups_of_spaces() {
     #[rustfmt::skip]
     assert_eq!(
@@ -20,7 +19,6 @@ fn degenerate_case_with_no_row_containing_3_distinct_groups_of_spaces() {
 }
 
 #[test]
-#[ignore]
 fn smallest_non_degenerate_case_with_odd_diamond_side_length() {
     #[rustfmt::skip]
     assert_eq!(
@@ -36,7 +34,6 @@ fn smallest_non_degenerate_case_with_odd_diamond_side_length() {
 }
 
 #[test]
-#[ignore]
 fn smallest_non_degenerate_case_with_even_diamond_side_length() {
     #[rustfmt::skip]
     assert_eq!(
@@ -54,7 +51,6 @@ fn smallest_non_degenerate_case_with_even_diamond_side_length() {
 }
 
 #[test]
-#[ignore]
 fn largest_possible_diamond() {
     assert_eq!(
         get_diamond('Z'),
