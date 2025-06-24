@@ -9,7 +9,6 @@ fn empty_rna_sequence() {
 }
 
 #[test]
-#[ignore]
 fn rna_complement_of_cytosine_is_guanine() {
     let input = "C";
     let output = Dna::new(input).unwrap().into_rna();

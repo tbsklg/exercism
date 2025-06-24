@@ -16,7 +16,12 @@ impl Dna {
     }
 
     pub fn into_rna(self) -> Rna {
-        Rna::new(&self.dna).unwrap()
+        let rna = match self.dna.as_str() {
+            "C" => "G",
+            _ => &self.dna,
+        };
+
+        Rna::new(rna).unwrap()
     }
 }
 
