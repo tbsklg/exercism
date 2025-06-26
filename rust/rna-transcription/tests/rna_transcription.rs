@@ -17,7 +17,6 @@ fn rna_complement_of_cytosine_is_guanine() {
 }
 
 #[test]
-#[ignore]
 fn rna_complement_of_guanine_is_cytosine() {
     let input = "G";
     let output = Dna::new(input).unwrap().into_rna();

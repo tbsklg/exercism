@@ -18,6 +18,7 @@ impl Dna {
     pub fn into_rna(self) -> Rna {
         let rna = match self.dna.as_str() {
             "C" => "G",
+            "G" => "C",
             _ => &self.dna,
         };
 
