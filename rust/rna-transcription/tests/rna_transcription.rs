@@ -25,7 +25,6 @@ fn rna_complement_of_guanine_is_cytosine() {
 }
 
 #[test]
-#[ignore]
 fn rna_complement_of_thymine_is_adenine() {
     let input = "T";
     let output = Dna::new(input).unwrap().into_rna();

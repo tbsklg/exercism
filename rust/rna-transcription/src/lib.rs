@@ -19,6 +19,7 @@ impl Dna {
         let rna = match self.dna.as_str() {
             "C" => "G",
             "G" => "C",
+            "T" => "A",
             _ => &self.dna,
         };
 
