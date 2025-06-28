@@ -33,7 +33,6 @@ fn rna_complement_of_thymine_is_adenine() {
 }
 
 #[test]
-#[ignore]
 fn rna_complement_of_adenine_is_uracil() {
     let input = "A";
     let output = Dna::new(input).unwrap().into_rna();
