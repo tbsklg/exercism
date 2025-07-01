@@ -16,15 +16,16 @@ impl Dna {
     }
 
     pub fn into_rna(self) -> Rna {
-        let rna = match self.dna.as_str() {
-            "C" => "G",
-            "G" => "C",
-            "T" => "A",
-            "A" => "U",
-            _ => &self.dna,
+        let to_rna = |nucleotide| match nucleotide {
+            'C' => 'G',
+            'G' => 'C',
+            'T' => 'A',
+            'A' => 'U',
+            _ => panic!("Invalid nucleotide: {}", nucleotide),
         };
 
-        Rna::new(rna).unwrap()
+        let rna: String = self.dna.chars().map(to_rna).collect();
+        Rna::new(&rna).unwrap()
     }
 }
 
