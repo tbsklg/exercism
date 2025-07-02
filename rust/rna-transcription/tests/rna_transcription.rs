@@ -41,7 +41,6 @@ fn rna_complement_of_adenine_is_uracil() {
 }
 
 #[test]
-#[ignore]
 fn rna_complement() {
     let input = "ACGTGGTCTTAA";
     let output = Dna::new(input).unwrap().into_rna();
@@ -50,7 +49,6 @@ fn rna_complement() {
 }
 
 #[test]
-#[ignore]
 fn invalid_dna_input() {
     let input = "U";
     let output = Dna::new(input);

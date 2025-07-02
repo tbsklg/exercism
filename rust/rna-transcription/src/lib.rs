@@ -10,6 +10,13 @@ pub struct Rna {
 
 impl Dna {
     pub fn new(dna: &str) -> Result<Dna, usize> {
+        for (i, c) in dna.chars().enumerate() {
+            match c {
+                'A' | 'C' | 'G' | 'T' => continue,
+                _ => return Err(i),
+            }
+        }
+
         Ok(Self {
             dna: dna.to_string(),
         })
@@ -17,15 +24,23 @@ impl Dna {
 
     pub fn into_rna(self) -> Rna {
         let to_rna = |nucleotide| match nucleotide {
-            'C' => 'G',
-            'G' => 'C',
-            'T' => 'A',
-            'A' => 'U',
-            _ => panic!("Invalid nucleotide: {}", nucleotide),
+            'C' => Some('G'),
+            'G' => Some('C'),
+            'T' => Some('A'),
+            'A' => Some('U'),
+            _ => None,
         };
 
-        let rna: String = self.dna.chars().map(to_rna).collect();
-        Rna::new(&rna).unwrap()
+        let rna: Result<String, usize> = self
+            .dna
+            .chars()
+            .enumerate()
+            .map(|(i, n)| to_rna(n).ok_or(i))
+            .collect();
+
+        let rna_string = rna.expect("Invalid nucleotide in DNA");
+
+        Rna::new(&rna_string).expect("Failed to construct RNA")
     }
 }
 
