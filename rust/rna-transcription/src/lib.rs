@@ -46,6 +46,13 @@ impl Dna {
 
 impl Rna {
     pub fn new(rna: &str) -> Result<Rna, usize> {
+        for (i, c) in rna.chars().enumerate() {
+            match c {
+                'G' | 'C' | 'A' | 'U' => continue,
+                _ => return Err(i),
+            }
+        }
+
         Ok(Self {
             rna: rna.to_string(),
         })

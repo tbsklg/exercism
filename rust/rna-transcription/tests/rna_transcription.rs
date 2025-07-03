@@ -57,7 +57,6 @@ fn invalid_dna_input() {
 }
 
 #[test]
-#[ignore]
 fn invalid_dna_input_at_offset() {
     let input = "ACGTUXXCTTAA";
     let output = Dna::new(input);
@@ -66,7 +65,6 @@ fn invalid_dna_input_at_offset() {
 }
 
 #[test]
-#[ignore]
 fn invalid_rna_input() {
     let input = "T";
     let output = Rna::new(input);
@@ -75,7 +73,6 @@ fn invalid_rna_input() {
 }
 
 #[test]
-#[ignore]
 fn invalid_rna_input_at_offset() {
     let input = "ACGTUXXCTTAA";
     let output = Rna::new(input);
