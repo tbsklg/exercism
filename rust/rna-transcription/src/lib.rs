@@ -9,52 +9,33 @@ pub struct Rna {
 }
 
 impl Dna {
-    pub fn new(dna: &str) -> Result<Dna, usize> {
-        for (i, c) in dna.chars().enumerate() {
-            match c {
-                'A' | 'C' | 'G' | 'T' => continue,
-                _ => return Err(i),
-            }
-        }
-
-        Ok(Self {
-            dna: dna.to_string(),
-        })
+    pub fn new(dna: &str) -> Result<Self, usize> {
+        dna.chars()
+            .enumerate()
+            .find(|(_, c)| !matches!(c, 'A' | 'C' | 'G' | 'T'))
+            .map_or_else(|| Ok(Self { dna: dna.to_string() }), |(i, _)| Err(i))
     }
 
     pub fn into_rna(self) -> Rna {
         let to_rna = |nucleotide| match nucleotide {
-            'C' => Some('G'),
-            'G' => Some('C'),
-            'T' => Some('A'),
-            'A' => Some('U'),
-            _ => None,
+            'C' => 'G',
+            'G' => 'C',
+            'T' => 'A',
+            'A' => 'U',
+            _ => unreachable!(), // already validated in Dna::new
         };
 
-        let rna: Result<String, usize> = self
-            .dna
-            .chars()
-            .enumerate()
-            .map(|(i, n)| to_rna(n).ok_or(i))
-            .collect();
+        let rna_string: String = self.dna.chars().map(to_rna).collect();
 
-        let rna_string = rna.expect("Invalid nucleotide in DNA");
-
-        Rna::new(&rna_string).expect("Failed to construct RNA")
+        Rna::new(&rna_string).unwrap() // safe due to known valid output
     }
 }
 
 impl Rna {
-    pub fn new(rna: &str) -> Result<Rna, usize> {
-        for (i, c) in rna.chars().enumerate() {
-            match c {
-                'G' | 'C' | 'A' | 'U' => continue,
-                _ => return Err(i),
-            }
-        }
-
-        Ok(Self {
-            rna: rna.to_string(),
-        })
+    pub fn new(rna: &str) -> Result<Self, usize> {
+        rna.chars()
+            .enumerate()
+            .find(|(_, c)| !matches!(c, 'G' | 'C' | 'A' | 'U'))
+            .map_or_else(|| Ok(Self { rna: rna.to_string() }), |(i, _)| Err(i))
     }
 }
