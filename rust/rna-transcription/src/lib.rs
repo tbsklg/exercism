@@ -1,25 +1,29 @@
 #[derive(Debug, PartialEq, Eq)]
-pub struct Dna;
+pub struct Dna {
+    dna: String,
+}
 
 #[derive(Debug, PartialEq, Eq)]
-pub struct Rna;
+pub struct Rna {
+    rna: String,
+}
 
 impl Dna {
     pub fn new(dna: &str) -> Result<Dna, usize> {
-        todo!(
-            "Construct new Dna from '{dna}' string. If string contains invalid nucleotides return index of first invalid nucleotide"
-        );
+        Ok(Self {
+            dna: dna.to_string(),
+        })
     }
 
     pub fn into_rna(self) -> Rna {
-        todo!("Transform Dna {self:?} into corresponding Rna");
+        Rna::new(&self.dna).unwrap()
     }
 }
 
 impl Rna {
     pub fn new(rna: &str) -> Result<Rna, usize> {
-        todo!(
-            "Construct new Rna from '{rna}' string. If string contains invalid nucleotides return index of first invalid nucleotide"
-        );
+        Ok(Self {
+            rna: rna.to_string(),
+        })
     }
 }
