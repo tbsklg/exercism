@@ -9,7 +9,6 @@ fn encode_empty_string() {
 }
 
 #[test]
-#[ignore]
 fn encode_single_characters_only_are_encoded_without_count() {
     let input = "XYZ";
     let output = rle::encode(input);
@@ -18,7 +17,6 @@ fn encode_single_characters_only_are_encoded_without_count() {
 }
 
 #[test]
-#[ignore]
 fn encode_string_with_no_single_characters() {
     let input = "AABBBCCCC";
     let output = rle::encode(input);
@@ -27,7 +25,6 @@ fn encode_string_with_no_single_characters() {
 }
 
 #[test]
-#[ignore]
 fn encode_single_characters_mixed_with_repeated_characters() {
     let input = "WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB";
     let output = rle::encode(input);
@@ -36,7 +33,6 @@ fn encode_single_characters_mixed_with_repeated_characters() {
 }
 
 #[test]
-#[ignore]
 fn encode_multiple_whitespace_mixed_in_string() {
     let input = "  hsqq qww  ";
     let output = rle::encode(input);
@@ -45,7 +41,6 @@ fn encode_multiple_whitespace_mixed_in_string() {
 }
 
 #[test]
-#[ignore]
 fn encode_lowercase_characters() {
     let input = "aabbbcccc";
     let output = rle::encode(input);
