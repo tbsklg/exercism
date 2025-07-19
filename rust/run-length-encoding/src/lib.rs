@@ -1,43 +1,63 @@
-use std::iter::repeat_n;
-
-pub fn encode(source: &str) -> String {
-    if source.is_empty() {
-        return "".to_string();
-    }
-
-    let head = source.chars().next().unwrap();
-    let capture = source.chars().take_while(|x| *x == head).count();
-    let tail = source.chars().skip(capture).collect::<String>();
-
-    if capture == 1 {
-        return format!("{head}{}", encode(&tail));
-    }
-
-    format!("{}{head}{}", capture, encode(&tail))
-}
-
-pub fn decode(source: &str) -> String {
-    if source.is_empty() {
+pub fn encode(content: &str) -> String {
+    if content.is_empty() {
         return String::new();
     }
 
-    let head = source.chars().next().unwrap();
+    let mut result = String::with_capacity(content.len());
+    let mut chars = content.chars().peekable();
 
-    if head.is_numeric() {
-        let digits = source
-            .chars()
-            .take_while(|x| x.is_numeric())
-            .collect::<String>();
-        let count = digits.parse::<usize>().unwrap();
-        let mut tail = source.chars().skip(digits.len());
+    while let Some(curr) = chars.next() {
+        let mut count = 1;
 
-        if let Some(repeat_char) = tail.next() {
-            let decoded = repeat_n(repeat_char, count).collect::<String>();
-            let remaining = tail.collect::<String>();
-            return format!("{}{}", decoded, decode(&remaining));
+        while chars.peek() == Some(&curr) {
+            count += 1;
+            chars.next();
+        }
+
+        if count > 1 {
+            result.push_str(&count.to_string());
+        }
+        result.push(curr);
+    }
+
+    result
+}
+
+pub fn decode(content: &str) -> String {
+    if content.is_empty() {
+        return String::new();
+    }
+
+    let mut result = String::with_capacity(content.len() * 2);
+    let mut chars = content.chars().peekable();
+
+    while let Some(curr) = chars.next() {
+        if curr.is_ascii_digit() {
+            let mut numeric_chars = String::new();
+            numeric_chars.push(curr);
+
+            while let Some(&next_char) = chars.peek() {
+                if next_char.is_ascii_digit() {
+                    numeric_chars.push(chars.next().unwrap());
+                } else {
+                    break;
+                }
+            }
+
+            if let Some(repeat_char) = chars.next() {
+                if let Ok(count) = numeric_chars.parse::<usize>() {
+                    result.push_str(&repeat_char.to_string().repeat(count));
+                } else {
+                    result.push_str(&numeric_chars);
+                    result.push(repeat_char);
+                }
+            } else {
+                result.push_str(&numeric_chars);
+            }
+        } else {
+            result.push(curr);
         }
     }
 
-    let tail = source.chars().skip(1).collect::<String>();
-    format!("{}{}", head, decode(&tail))
+    result
 }
