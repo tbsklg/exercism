@@ -1,59 +1,33 @@
+use std::iter::repeat_n;
+
 pub fn get_diamond(c: char) -> Vec<String> {
     if c == 'A' {
-        return vec!["A".to_string()];
+        return vec![c.to_string()];
     }
-    
-    let n = (c as u8 - b'A') as usize;
-    let width = 2 * n + 1;
-    let mut result = Vec::new();
-    
-    for i in 0..=n {
-        let letter = (b'A' + i as u8) as char;
-        let outer_spaces = n - i;
-        
-        if i == 0 {
-            let line = format!("{}{}{}", 
-                " ".repeat(outer_spaces), 
-                letter, 
-                " ".repeat(outer_spaces)
-            );
-            result.push(line);
-        } else {
-            let inner_spaces = 2 * i - 1;
-            let line = format!("{}{}{}{}{}", 
-                " ".repeat(outer_spaces), 
-                letter, 
-                " ".repeat(inner_spaces), 
-                letter, 
-                " ".repeat(outer_spaces)
-            );
-            result.push(line);
-        }
-    }
-    
-    for i in (0..n).rev() {
-        let letter = (b'A' + i as u8) as char;
-        let outer_spaces = n - i;
-        
-        if i == 0 {
-            let line = format!("{}{}{}", 
-                " ".repeat(outer_spaces), 
-                letter, 
-                " ".repeat(outer_spaces)
-            );
-            result.push(line);
-        } else {
-            let inner_spaces = 2 * i - 1;
-            let line = format!("{}{}{}{}{}", 
-                " ".repeat(outer_spaces), 
-                letter, 
-                " ".repeat(inner_spaces), 
-                letter, 
-                " ".repeat(outer_spaces)
-            );
-            result.push(line);
-        }
-    }
-    
-    result
+
+    let first_line = first_line(c);
+    let middle_line = middle_line(c);
+
+    vec![
+        first_line.to_string(),
+        middle_line.to_string(),
+        first_line.to_string(),
+    ]
+}
+
+// TODO: why do i need the type here?
+const ALPHABET: &str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+fn alphabet_index(c: char) -> usize {
+    ALPHABET.find(c).unwrap()
+}
+
+fn first_line(c: char) -> String {
+    let whitespaces = repeat_n(" ", alphabet_index(c)).collect::<String>();
+    format!("{whitespaces}A{whitespaces}")
+}
+
+fn middle_line(c: char) -> String {
+    let whitespaces = repeat_n(" ", alphabet_index(c)).collect::<String>();
+    format!("{c}{whitespaces}{c}")
 }
