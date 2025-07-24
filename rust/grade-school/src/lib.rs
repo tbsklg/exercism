@@ -10,7 +10,6 @@ impl School {
     }
 
     pub fn add(&mut self, grade: u32, student: &str) {
-        todo!("Add {student} to the roster for {grade}")
     }
 
     pub fn grades(&self) -> Vec<u32> {

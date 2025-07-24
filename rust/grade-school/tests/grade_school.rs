@@ -7,7 +7,6 @@ fn grade_is_empty_if_no_students_in_the_roster() {
 }
 
 #[test]
-#[ignore]
 fn grade_is_empty_if_no_students_in_that_grade() {
     let mut s = School::new();
     s.add(2, "Peter");
