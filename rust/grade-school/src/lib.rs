@@ -1,15 +1,20 @@
+use std::collections::{HashMap, HashSet};
+
 pub struct School {
-    grade: u8,
+    grades: HashMap<u32, HashSet<String>>,
 }
 
 impl School {
     pub fn new() -> School {
         Self {
-            grade: 1,
+            grades: HashMap::new(),
         }
     }
 
     pub fn add(&mut self, grade: u32, student: &str) {
+        self.grades.entry(grade)
+            .or_default()
+            .insert(student.to_string()); 
     }
 
     pub fn grades(&self) -> Vec<u32> {
@@ -21,6 +26,12 @@ impl School {
     // the internal structure can be completely arbitrary. The tradeoff is that some data
     // must be copied each time `grade` is called.
     pub fn grade(&self, grade: u32) -> Vec<String> {
-        vec![]
+        self.grades.get(&grade)
+            .map(|students| {
+                let mut sorted_students: Vec<String> = students.iter().cloned().collect();
+                sorted_students.sort();
+                sorted_students
+            })
+            .unwrap_or_default()
     }
 }

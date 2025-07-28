@@ -17,7 +17,6 @@ fn grade_is_empty_if_no_students_in_that_grade() {
 }
 
 #[test]
-#[ignore]
 fn student_not_added_to_same_grade_more_than_once() {
     let mut s = School::new();
     s.add(2, "Blair");
