@@ -12,9 +12,19 @@ impl School {
     }
 
     pub fn add(&mut self, grade: u32, student: &str) {
-        self.grades.entry(grade)
+        let already_in_grade = self
+            .grades
+            .values()
+            .any(|students| students.contains(student));
+        
+        if already_in_grade {
+            return; // Student already in this grade, do nothing
+        }
+
+        self.grades
+            .entry(grade)
             .or_default()
-            .insert(student.to_string()); 
+            .insert(student.to_string());
     }
 
     pub fn grades(&self) -> Vec<u32> {
@@ -26,7 +36,8 @@ impl School {
     // the internal structure can be completely arbitrary. The tradeoff is that some data
     // must be copied each time `grade` is called.
     pub fn grade(&self, grade: u32) -> Vec<String> {
-        self.grades.get(&grade)
+        self.grades
+            .get(&grade)
             .map(|students| {
                 let mut sorted_students: Vec<String> = students.iter().cloned().collect();
                 sorted_students.sort();

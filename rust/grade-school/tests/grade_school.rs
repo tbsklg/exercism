@@ -37,7 +37,6 @@ fn student_not_added_to_multiple_grades() {
 }
 
 #[test]
-#[ignore]
 fn student_not_added_to_other_grade_for_multiple_grades() {
     let mut s = School::new();
     s.add(2, "Blair");
