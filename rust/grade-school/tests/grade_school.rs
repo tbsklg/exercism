@@ -47,7 +47,6 @@ fn student_not_added_to_other_grade_for_multiple_grades() {
 }
 
 #[test]
-#[ignore]
 fn students_are_sorted_by_name_in_a_grade() {
     let mut s = School::new();
     s.add(5, "Franklin");
