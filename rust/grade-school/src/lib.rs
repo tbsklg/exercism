@@ -28,7 +28,7 @@ impl School {
     }
 
     pub fn grades(&self) -> Vec<u32> {
-        todo!()
+        vec![]
     }
 
     // If `grade` returned a reference, `School` would be forced to keep a `Vec<String>`

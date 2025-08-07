@@ -56,7 +56,6 @@ fn students_are_sorted_by_name_in_a_grade() {
 }
 
 #[test]
-#[ignore]
 fn grades_for_empty_school() {
     let s = School::new();
     assert_eq!(s.grades(), vec![])
