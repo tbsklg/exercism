@@ -62,7 +62,6 @@ fn grades_for_empty_school() {
 }
 
 #[test]
-#[ignore]
 fn grades_for_one_student() {
     let mut s = School::new();
     s.add(2, "Aimee");
@@ -70,7 +69,6 @@ fn grades_for_one_student() {
 }
 
 #[test]
-#[ignore]
 fn grades_for_several_students_are_sorted() {
     let mut s = School::new();
     s.add(2, "Aimee");

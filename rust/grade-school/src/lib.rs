@@ -28,7 +28,7 @@ impl School {
     }
 
     pub fn grades(&self) -> Vec<u32> {
-        vec![]
+        self.grades.keys().cloned().collect()
     }
 
     // If `grade` returned a reference, `School` would be forced to keep a `Vec<String>`
