@@ -28,7 +28,9 @@ impl School {
     }
 
     pub fn grades(&self) -> Vec<u32> {
-        self.grades.keys().cloned().collect()
+        let mut grades: Vec<u32> = self.grades.keys().cloned().collect();
+        grades.sort();
+        grades
     }
 
     // If `grade` returned a reference, `School` would be forced to keep a `Vec<String>`
