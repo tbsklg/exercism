@@ -9,7 +9,6 @@ fn lowercase_letter() {
 }
 
 #[test]
-#[ignore]
 fn uppercase_letter() {
     let input = "A";
     let output = score(input);
