@@ -17,7 +17,6 @@ fn uppercase_letter() {
 }
 
 #[test]
-#[ignore]
 fn valuable_letter() {
     let input = "f";
     let output = score(input);
