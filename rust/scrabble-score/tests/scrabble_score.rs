@@ -25,7 +25,6 @@ fn valuable_letter() {
 }
 
 #[test]
-#[ignore]
 fn short_word() {
     let input = "at";
     let output = score(input);
