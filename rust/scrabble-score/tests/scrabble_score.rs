@@ -33,7 +33,6 @@ fn short_word() {
 }
 
 #[test]
-#[ignore]
 fn short_valuable_word() {
     let input = "zoo";
     let output = score(input);
