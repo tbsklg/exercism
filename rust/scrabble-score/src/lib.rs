@@ -15,7 +15,7 @@ pub fn score(word: &str) -> u64 {
                 acc += 4;
             }
 
-            if c == 'a' || c == 't' {
+            if c == 'a' || c == 't' || c == 's' || c == 'r' || c == 'e' {
                 acc += 1;
             }
 

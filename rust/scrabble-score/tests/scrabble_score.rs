@@ -41,7 +41,6 @@ fn short_valuable_word() {
 }
 
 #[test]
-#[ignore]
 fn medium_word() {
     let input = "street";
     let output = score(input);
