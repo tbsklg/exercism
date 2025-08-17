@@ -49,7 +49,6 @@ fn medium_word() {
 }
 
 #[test]
-#[ignore]
 fn medium_valuable_word() {
     let input = "quirky";
     let output = score(input);
