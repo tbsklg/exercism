@@ -57,7 +57,6 @@ fn medium_valuable_word() {
 }
 
 #[test]
-#[ignore]
 fn long_mixed_case_word() {
     let input = "OxyphenButazone";
     let output = score(input);
@@ -66,7 +65,6 @@ fn long_mixed_case_word() {
 }
 
 #[test]
-#[ignore]
 fn english_like_word() {
     let input = "pinata";
     let output = score(input);
@@ -75,7 +73,6 @@ fn english_like_word() {
 }
 
 #[test]
-#[ignore]
 fn empty_input() {
     let input = "";
     let output = score(input);
@@ -84,7 +81,6 @@ fn empty_input() {
 }
 
 #[test]
-#[ignore]
 fn entire_alphabet_available() {
     let input = "abcdefghijklmnopqrstuvwxyz";
     let output = score(input);
@@ -93,7 +89,6 @@ fn entire_alphabet_available() {
 }
 
 #[test]
-#[ignore]
 fn non_english_scrabble_letters_do_not_score() {
     let input = "piñata";
     let output = score(input);
@@ -102,7 +97,6 @@ fn non_english_scrabble_letters_do_not_score() {
 }
 
 #[test]
-#[ignore]
 fn german_letters_do_not_score() {
     let input = "STRAßE";
     let output = score(input);
