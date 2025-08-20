@@ -23,7 +23,6 @@ fn count_repetitive_cytosine() {
 }
 
 #[test]
-#[ignore]
 fn count_only_thymine() {
     assert_eq!(count('T', "GGGGGTAACCCGG"), Ok(1));
 }
