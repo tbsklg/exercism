@@ -28,7 +28,6 @@ fn count_only_thymine() {
 }
 
 #[test]
-#[ignore]
 fn empty_strand() {
     let output = nucleotide_counts("");
     let mut expected = HashMap::new();
