@@ -39,7 +39,6 @@ fn empty_strand() {
 }
 
 #[test]
-#[ignore]
 fn can_count_one_nucleotide_in_single_character_input() {
     let output = nucleotide_counts("G");
     let mut expected = HashMap::new();
