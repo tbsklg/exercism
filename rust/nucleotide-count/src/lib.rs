@@ -1,8 +1,8 @@
 use std::collections::HashMap;
 
 pub fn count(nucleotide: char, dna: &str) -> Result<usize, char> {
-    let mut counts = nucleotide_counts(dna)?;
-    counts.remove(&nucleotide).ok_or(nucleotide)
+    let counts = nucleotide_counts(dna)?;
+    counts.get(&nucleotide).copied().ok_or(nucleotide)
 }
 
 pub fn nucleotide_counts(dna: &str) -> Result<HashMap<char, usize>, char> {
