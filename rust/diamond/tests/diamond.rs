@@ -6,7 +6,6 @@ fn degenerate_case_with_a_single_a_row() {
 }
 
 #[test]
-#[ignore]
 fn degenerate_case_with_no_row_containing_3_distinct_groups_of_spaces() {
     #[rustfmt::skip]
     assert_eq!(
