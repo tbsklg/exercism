@@ -1,21 +1,35 @@
-use std::iter::repeat_n;
-
 pub fn get_diamond(c: char) -> Vec<String> {
     if c == 'A' {
         return vec!["A".to_string()];
     }
 
-    vec![first_line(c), middle_line(c), first_line(c)]
+    let mut result = Vec::new();
+    let target_pos = alphabet_position(c);
+
+    result.push(line('A', target_pos, 0));
+
+    for i in 1..=target_pos {
+        let current_char = (b'A' + i as u8) as char;
+        result.push(line(current_char, target_pos, i));
+    }
+
+    for i in (0..target_pos).rev() {
+        let current_char = (b'A' + i as u8) as char;
+        result.push(line(current_char, target_pos, i));
+    }
+
+    result
 }
 
-fn first_line(c: char) -> String {
-    let whitespaces = repeat_n(' ', alphabet_position(c)).collect::<String>();
-    format!("{}A{}", whitespaces, whitespaces)
-}
+fn line(c: char, target_pos: usize, pos: usize) -> String {
+    if c == 'A' {
+        let outer = " ".repeat(target_pos - pos);
+        return format!("{}A{}", outer, outer);
+    }
 
-fn middle_line(c: char) -> String {
-    let whitespaces = repeat_n(' ', alphabet_position(c)).collect::<String>();
-    format!("{}{}{}", c, whitespaces, c)
+    let outer = " ".repeat(target_pos - pos);
+    let inner = " ".repeat(pos * 2 - 1);
+    format!("{}{}{}{}{}", outer, c, inner, c, outer)
 }
 
 fn alphabet_position(c: char) -> usize {
