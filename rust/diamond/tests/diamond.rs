@@ -51,7 +51,6 @@ fn smallest_non_degenerate_case_with_even_diamond_side_length() {
 }
 
 #[test]
-#[ignore]
 fn largest_possible_diamond() {
     assert_eq!(
         get_diamond('Z'),
